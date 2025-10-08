@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelPack – Vanilla</title>
+ <style>
+  /* === FARGEVARIABLER ===
+     Brukes over hele designet.
+     Bytt her -> alt oppdateres. */
+  :root{
+    --bg:#f8fafc;       /* side-bakgrunn */
+    --card:#fff;        /* hvit bakgrunn på kort */
+    --border:#e5e7eb;   /* grå kantlinjer */
+    --text:#111827;     /* hovedtekst */
+    --muted:#6b7280;    /* grå sekundærtekst */
+    --brand:#16a34a;    /* grønn merke-farge */
+    --brand-600:#16a34a;/* grønn knapp (default) */
+    --brand-700:#15803d;/* grønn knapp (hover) */
+  }
+
+  *{box-sizing:border-box} /* inkluder padding/border i bredde/høyde */
+
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+    background:var(--bg); /* lys bakgrunn */
+    color:var(--text);    /* tekstfarge */
+  }
+
+  a{color:inherit;text-decoration:none} /* lenker: ingen farge/underline */
+
+  /* === HEADER === */
+  header{background:#fff;border-bottom:1px solid var(--border)} /* hvit + grå linje */
+
+  .container{
+    max-width:1200px;   /* aldri bredere enn 1200px */
+    margin:0 auto;      /* midtstill */
+    padding:0 24px;     /* luft på sidene */
+  }
+
+  .nav{
+    display:flex;align-items:center;
+    justify-content:space-between;
+    padding:8px 0;     /* nav-bar */
+  }
+
+  .nav-left{display:flex;gap:32px;align-items:center} /* logo + linker */
+
+  .nav-links{display:none;gap:24px} /* menyvalg skjult på mobil */
+  @media(min-width:768px){.nav-links{display:flex}} /* vises på større skjermer */
+
+  .btn{
+    padding:10px 18px;
+    background:var(--brand-600);
+    color:#fff;
+    border:0;border-radius:10px;
+    cursor:pointer;font-weight:600;
+  } /* grønn CTA-knapp */
+  .btn:hover{background:var(--brand-700)} /* mørkere grønn når hover */
+
+  /* === HERO / TITTEL === */
+  main{padding:48px 0}
+
+  .title{text-align:center;margin-bottom:32px} /* hero seksjon */
+  .title h1{font-size:32px;margin:0 0 8px}
+  .title p{color:var(--muted);max-width:640px;margin:0 auto}
+
+  /* === KORT / BOKSER === */
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    box-shadow:0 1px 2px rgba(0,0,0,.03);
+  }
+  .pad{padding:16px}   /* standard padding */
+  .pad-lg{padding:24px}/* større padding */
+
+  /* === FILTER === */
+  .filters{display:flex;flex-direction:column;gap:12px}
+  @media(min-width:768px){.filters{flex-direction:row}} /* rad på desktop */
+
+  .input{
+    width:100%;padding:12px 40px;
+    border:1px solid #d1d5db;
+    border-radius:10px;outline:none;
+  } /* søkefelt */
+  .input:focus{border-color:#a7f3d0;box-shadow:0 0 0 3px rgba(16,185,129,.25)}
+
+  .select{padding:12px;border:1px solid #d1d5db;border-radius:10px} /* dropdown */
+
+  .search-icon{
+    position:absolute;left:12px;top:50%;
+    transform:translateY(-50%);
+    opacity:.55; /* 🔍 ikon inne i input */
+  }
+
+  /* === GRID SYSTEM === */
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+  .col-2{grid-column:span 12} /* mobil: full bredde */
+  .col-8{grid-column:span 12}
+  @media(min-width:1024px){
+    .col-2{grid-column:span 2} /* desktop: 2 spalter (sidepanel) */
+    .col-8{grid-column:span 8} /* desktop: 8 spalter (hovedfelt) */
+  }
+
+  /* === PANEL MED EMOJI === */
+  .panel{max-height:600px;overflow:auto} /* scrollbar om mange elementer */
+  .panel h3{font-size:14px;color:#374151;margin:0 0 12px}
+
+  .emoji-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .emoji{
+    font-size:22px;padding:10px;background:#f9fafb;
+    border:1px solid #eef2f7;border-radius:10px;
+    text-align:center;cursor:grab;
+    transition:transform .12s, background .12s;
+  } /* hvert valg-element */
+  .emoji:hover{background:#f0fdf4;transform:scale(1.06)}
+
+  /* === KOFFERT-HEADER === */
+  .suitcase-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+  .muted{color:var(--muted);font-size:14px} /* hjelpetekst */
+  .link-btn{display:flex;gap:6px;align-items:center;background:none;border:0;color:#4b5563;font-weight:600;cursor:pointer}
+  .link-btn:hover{color:#111827} /* "Fjern alle"-knapp */
+
+  /* === DROPZONE === */
+  .dropzone{
+    min-height:200px;border:2px dashed #d1d5db;
+    border-radius:12px;background:#f9fafb;
+    padding:16px;transition:all .15s;
+  } /* koffertområde */
+  .dropzone.over{border-color:var(--brand);background:#ecfdf5} /* highlight ved drag */
+
+  .packed-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  @media(max-width:640px){.packed-grid{grid-template-columns:repeat(3,1fr)}}
+
+  .packed{
+    position:relative;padding:12px;font-size:28px;
+    background:#fff;border:1px solid var(--border);
+    border-radius:12px;text-align:center;
+  } /* et pakket element */
+
+  .remove{
+    position:absolute;top:-6px;right:-6px;width:24px;height:24px;
+    border-radius:999px;border:1px solid var(--border);
+    background:#fff;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;opacity:0;transition:opacity .12s;
+  } /* liten fjern-knapp */
+  .packed:hover .remove{opacity:1}
+
+  /* === FREMDIFTSLINJE === */
+  .progress{display:flex;align-items:center;gap:8px;margin-top:12px}
+  .bar{width:128px;height:8px;border-radius:999px;background:#e5e7eb;overflow:hidden}
+  .bar > div{height:100%;background:var(--brand);width:0} /* grønn fyll (JS oppdaterer width) */
+
+  /* === ANBEFALINGER === */
+  .recs h2{margin:0 0 8px}
+  .rec{padding:20px}
+  .rec-top{display:flex;justify-content:space-between;gap:16px}
+  .rec h3{margin:0 0 4px}
+  .rec .desc{color:var(--muted)}
+  .score{display:flex;align-items:center;gap:6px}
+  .scorebar{width:90px;height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden}
+  .scorebar > div{height:100%;background:var(--brand)} /* grønn scorefyll */
+  .highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+  .hl{display:flex;align-items:center;gap:6px;color:#374151;font-size:14px}
+
+  /* === FOOTER === */
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--border)}
+  .foot{color:#6b7280;text-align:center;font-size:14px}
+  .foot .links{display:flex;gap:24px;justify-content:center;margin-top:8px}
+
+  .icon{font-style:normal} /* brukes for små ikoner (⟲) */
+</style>
+
+</head>
+<body>
+  <!-- HEADER: logo, linker, knapp -->
+  <header>
+    <div class="container">
+      <nav class="nav">
+        <div class="nav-left">
+          <!-- LOGO -->
+          <div style="display:flex;align-items:center;gap:8px">
+            <img src="ChatGPT Image Sep 14, 2025 at 04_20_21 PM.png"
+                 alt="Logo"
+                 style="width:120px;height:120px;border-radius:999px;object-fit:cover"/>
+          </div>
+
+          <!-- NAV LENKER -->
+          <div class="nav-links">
+            <a href="#">Destinasjoner</a>
+            <a href="#">Slik funker det</a>
+            <a href="#">Om oss</a>
+            <a href="#">Kontakt</a>
+          </div>
+        </div>
+        <!-- CTA knapp -->
+        <button class="btn">Kom i gang</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+
+    <!-- HERO TITTEL -->
+    <section class="title">
+      <h1>Din stil, din reise, din destinasjon.</h1>
+      <p>Pakk din virtuelle koffert og oppdag reisemål som matcher din stil. Enkelt, smart og personlig.</p>
+    </section>
+
+    <!-- FILTER-SEKSJON -->
+    <section class="card pad">
+      <div class="filters">
+        <div style="position:relative;flex:1">
+          <span class="search-icon">🔍</span>
+          <input id="search" class="input" placeholder="Søk..." /> <!-- søkefelt -->
+        </div>
+        <select id="category" class="select"></select> <!-- kategori dropdown -->
+      </div>
+    </section>
+
+    <!-- GRID: venstre panel, midt koffert, høyre panel -->
+    <section class="grid" style="margin-top:24px">
+
+      <!-- VENSTRE PANEL -->
+      <aside class="card pad panel col-2">
+        <h3>Tilgjengelige elementer</h3>
+        <div id="leftList" class="emoji-grid"></div> <!-- emoji-listen venstre -->
+      </aside>
+
+      <!-- MIDTSEKSJON: koffert -->
+      <section class="col-8">
+        <div class="card pad-lg">
+          <div class="suitcase-head">
+            <div>
+              <h2 style="margin:0 0 6px">Din Koffert</h2>
+              <div class="muted">Dra og slipp elementer for å pakke. Trenger minst 5 elementer for anbefalinger.</div>
+            </div>
+            <!-- knapp for å tømme kofferten -->
+            <button id="resetBtn" class="link-btn" style="display:none" title="Fjern alle">
+              <span class="icon">⟲</span><span>Fjern Alle</span>
+            </button>
+          </div>
+
+          <!-- DROPZONE -->
+          <div id="dropzone" class="dropzone" aria-label="Slipp elementer her">
+            <!-- vises når kofferten er tom -->
+            <div id="emptyState"
+                 style="display:flex;flex-direction:column;align-items:center;justify-content:center;color:#6b7280;padding:24px 0">
+              <div style="font-size:42px;line-height:1">🧳</div>
+              <div style="font-weight:600;margin-top:8px">Slipp elementer her for å pakke</div>
+              <div id="needCount" class="muted" style="margin-top:4px"></div> <!-- hvor mange mangler -->
+            </div>
+            <!-- fylles når man drar inn emojis -->
+            <div id="packedGrid" class="packed-grid" style="display:none"></div>
+          </div>
+
+          <!-- PROGRESS BAR -->
+          <div class="progress">
+            <div class="bar"><div id="barFill"></div></div> <!-- grønn fyll -->
+            <span id="countLabel" class="muted">0 of 12 items</span> <!-- tekst -->
+          </div>
+        </div>
+
+        <!-- ANBEFALINGER -->
+        <div id="recsWrap" class="recs" style="margin-top:24px;display:none">
+          <h2>Anbefalinger</h2>
+          <div id="recsList" class="grid" style="grid-template-columns:1fr;gap:16px"></div>
+        </div>
+      </section>
+
+      <!-- HØYRE PANEL -->
+      <aside class="card pad panel col-2">
+        <h3>Flere elementer</h3>
+        <div id="rightList" class="emoji-grid"></div> <!-- emoji-liste høyre -->
+      </aside>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="foot">
+        <div>© 2024 TravelPack. Alle rettigheter reservert.</div>
+        <div class="links">
+          <a href="#">Personvernerklæring</a>
+          <a href="#">Vilkår for bruk</a>
+          <a href="#">Hjelpesenter</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+  <script>
+    // ===== Data =====
+    const emojiCategories = {
+      beach: {name:'Beach',items:['👙','🩱','🩴','🕶️','🧴','🏖️','🏄‍♀️','🤿','☀️','🌊','🏝️','🥥','🍹','🦜','🐚']},
+      adventure: {name:'Adventure',items:['🥾','🎒','⛺','🧗‍♀️','🏔️','🧭','🔦','🗺️','🪓','🔥','🦌','🌲','🏕️','🚵‍♂️','🪂']},
+      winter: {name:'Winter',items:['🧥','🧤','🧣','⛷️','🏂','❄️','☃️','🎿','🏔️','☕','🔥','🛷','⛸️','🌨️','🎄']},
+      city: {name:'City',items:['👔','👗','👠','💼','📱','💳','🏛️','🎭','🍽️','🚕','🏙️','🌃','🎨','☕','🛍️']},
+      tropical: {name:'Tropical',items:['🌺','🌴','🦩','🍍','🥭','🦎','🐠','🐬','🌅','🍹','🥥','🏖️','🌊','🦜','🌸']},
+      camping: {name:'Camping',items:['⛺','🔥','🔦','🎒','🥾','🗺️','🧭','🪓','🌲','🦌','🌙','⭐','🏕️','🌄','🦉']},
+      essentials: {name:'Essentials',items:['📱','💳','📷','🎧','💻','🔌','💊','📖','✈️','🎫','🗝️','💰','📝','⌚','🔒']},
+    };
+
+    // ===== State =====
+    let packedItems = [];
+    let searchTerm = '';
+    let selectedCategory = 'all';
+    let draggedItem = null;
+
+    // ===== Elements =====
+    const searchEl = document.getElementById('search');
+    const categoryEl = document.getElementById('category');
+    const leftList = document.getElementById('leftList');
+    const rightList = document.getElementById('rightList');
+    const dropzone = document.getElementById('dropzone');
+    const emptyState = document.getElementById('emptyState');
+    const needCount = document.getElementById('needCount');
+    const packedGrid = document.getElementById('packedGrid');
+    const barFill = document.getElementById('barFill');
+    const countLabel = document.getElementById('countLabel');
+    const resetBtn = document.getElementById('resetBtn');
+    const recsWrap = document.getElementById('recsWrap');
+    const recsList = document.getElementById('recsList');
+
+    // ===== Helpers =====
+    const getAllEmojis = () => {
+      const set = new Set();
+      Object.values(emojiCategories).forEach(c=>c.items.forEach(e=>set.add(e)));
+      return Array.from(set);
+    };
+
+    const getFilteredEmojis = () => {
+      let emojis = selectedCategory === 'all' ? getAllEmojis() : (emojiCategories[selectedCategory]?.items || []);
+      if (searchTerm) emojis = emojis.filter(e => e.includes(searchTerm));
+      return emojis;
+    };
+
+    const computeRecommendations = () => {
+      if (packedItems.length < 5) return [];
+      const itemSet = new Set(packedItems);
+      const out = [];
+      const push = (obj)=>out.push(obj);
+
+      if (itemSet.has('👙') || itemSet.has('🩱') || itemSet.has('🩴')) {
+        if (itemSet.has('🕶️') || itemSet.has('🧴')) {
+          push({destination:'Lisboa, Portugal',match:'Excellent Match',description:'Stunning beaches, vibrant culture, and year-round sunshine',highlights:['Cascais beaches','Surf spots','Beach bars','Coastal sunsets'],matchScore:95});
+        }
+        push({destination:'Bali, Indonesia',match:'Ekotisk',description:'Tropical paradise with world-class beaches and culture',highlights:['Island hopping','Diving spots','Perfect waves','Exotic wildlife'],matchScore:85});
+      }
+      if (itemSet.has('🧥') && (itemSet.has('🧤') || itemSet.has('🧣'))) {
+        push({destination:'Swiss Alps',match:'Fjell Kriger',description:'Premier winter sports destination with stunning mountain views',highlights:['World-class skiing','Alpine views','Cozy chalets','Mountain railways'],matchScore:98});
+      }
+      if (itemSet.has('🥾') && (itemSet.has('🎒') || itemSet.has('⛺'))) {
+        push({destination:'Patagonia, Chile',match:'Eventyrlig Utforsker',description:'Ultimate destination for hiking and outdoor adventures',highlights:['Torres del Paine','Epic trails','Wildlife viewing','Dramatic landscapes'],matchScore:90});
+      }
+      if (itemSet.has('👔') || itemSet.has('👗') || itemSet.has('💼')) {
+        push({destination:'Tokyo, Japan',match:'Urban Utforsker',description:'Cutting-edge city with perfect blend of tradition and modernity',highlights:['Skyline views','Michelin dining','Cultural sites','Bullet trains'],matchScore:88});
+      }
+      if (itemSet.has('🌺') || itemSet.has('🌴') || itemSet.has('🍹')) {
+        push({destination:'Costa Rica',match:'Tropisk Getaway',description:'Biodiversity hotspot with rainforests and beaches',highlights:['Wildlife tours','Rainforests','Both coasts','Volcanoes'],matchScore:92});
+      }
+      return out.slice(0,3);
+    };
+
+    const renderEmojiPanels = () => {
+      const list = getFilteredEmojis();
+      const mid = Math.ceil(list.length/2);
+      const left = list.slice(0,mid);
+      const right = list.slice(mid);
+      const make = (emoji, key) => {
+        const d = document.createElement('div');
+        d.className = 'emoji';
+        d.textContent = emoji;
+        d.draggable = true;
+        d.addEventListener('dragstart', e => {
+          draggedItem = emoji;
+          e.dataTransfer.effectAllowed = 'copy';
+        });
+        return d;
+      };
+      leftList.replaceChildren(...left.map((e,i)=>make(e,`left-${i}`)));
+      rightList.replaceChildren(...right.map((e,i)=>make(e,`right-${i}`)));
+    };
+
+    const renderSuitcase = () => {
+      const hasItems = packedItems.length>0;
+      emptyState.style.display = hasItems ? 'none' : 'flex';
+      packedGrid.style.display = hasItems ? 'grid' : 'none';
+      needCount.textContent = `${Math.max(0,5 - packedItems.length)} flere elementer nødvendig for anbefalinger`;
+      packedGrid.replaceChildren(...packedItems.map((item, idx)=>{
+        const wrap = document.createElement('div');
+        wrap.className = 'packed';
+        wrap.innerText = item;
+        const remove = document.createElement('button');
+        remove.className = 'remove';
+        remove.setAttribute('aria-label','Fjern');
+        remove.innerText = '✕';
+        remove.addEventListener('click',()=>{
+          packedItems = packedItems.filter((_,i)=>i!==idx);
+          updateAll();
+        });
+        wrap.appendChild(remove);
+        return wrap;
+      }));
+
+      // Progress
+      const pct = Math.min(100,(packedItems.length/12)*100);
+      barFill.style.width = pct+'%';
+      countLabel.textContent = `${packedItems.length} of 12 items`;
+
+      // Reset button
+      resetBtn.style.display = packedItems.length ? 'inline-flex' : 'none';
+    };
+
+    const renderRecommendations = () => {
+      const recs = computeRecommendations();
+      recsWrap.style.display = recs.length ? 'block' : 'none';
+      if (!recs.length){recsList.innerHTML='';return;}
+      recsList.replaceChildren(...recs.map(rec=>{
+        const card = document.createElement('div');
+        card.className = 'card rec';
+        const top = document.createElement('div');
+        top.className = 'rec-top';
+        const left = document.createElement('div');
+        const h3 = document.createElement('h3'); h3.textContent = rec.destination;
+        const desc = document.createElement('div'); desc.className = 'desc'; desc.textContent = rec.description;
+        left.append(h3,desc);
+        const right = document.createElement('div'); right.style.textAlign='right';
+        const match = document.createElement('div'); match.className='muted'; match.textContent = rec.match;
+        const score = document.createElement('div'); score.className='score';
+        const bar = document.createElement('div'); bar.className='scorebar';
+        const fill = document.createElement('div'); fill.style.width = rec.matchScore+'%'; bar.appendChild(fill);
+        const label = document.createElement('span'); label.className='muted'; label.style.fontSize='12px'; label.textContent = rec.matchScore+'%';
+        score.append(bar,label);
+        right.append(match,score);
+        top.append(left,right);
+        const highlights = document.createElement('div');
+        highlights.className = 'highlights';
+        rec.highlights.forEach(h=>{
+          const row = document.createElement('div'); row.className='hl';
+          const chev = document.createElement('span'); chev.textContent = '›';
+          const text = document.createElement('span'); text.textContent = h;
+          row.append(chev,text);
+          highlights.appendChild(row);
+        });
+        card.append(top,highlights);
+        return card;
+      }));
+    };
+
+    const updateAll = () => { renderEmojiPanels(); renderSuitcase(); renderRecommendations(); };
+
+    // ===== Events =====
+    // Build category options
+    const buildCategorySelect = () => {
+      const optAll = document.createElement('option'); optAll.value='all'; optAll.textContent='Alle Kategorier';
+      categoryEl.appendChild(optAll);
+      Object.entries(emojiCategories).forEach(([key,cat])=>{
+        const o = document.createElement('option'); o.value=key; o.textContent=cat.name; categoryEl.appendChild(o);
+      });
+    };
+
+    searchEl.addEventListener('input', e => { searchTerm = e.target.value.trim(); renderEmojiPanels(); });
+    categoryEl.addEventListener('change', e => { selectedCategory = e.target.value; renderEmojiPanels(); });
+
+    dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('over'); e.dataTransfer.dropEffect='copy'; });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('over'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault(); dropzone.classList.remove('over');
+      if (!draggedItem) return;
+      if (packedItems.length >= 12) return;
+      packedItems.push(draggedItem);
+      draggedItem = null;
+      updateAll();
+    });
+
+    resetBtn.addEventListener('click', ()=>{
+      packedItems = []; searchTerm=''; selectedCategory='all';
+      searchEl.value=''; categoryEl.value='all';
+      updateAll();
+    });
+
+    // ===== Init =====
+    buildCategorySelect();
+    updateAll();
+  </script>
+</body>
+</html>
+
