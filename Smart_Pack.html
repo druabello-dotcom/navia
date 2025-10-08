@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SmartPack – Drag into Suitcase</title>
+<style>
+  /* =============== THEME + BACKGROUND ================= */
+  :root{
+    /* set this to your file from the zip you shared */
+    --bg-image: url("images/closed-airport.jpg"); /* <-- change this */
+    --bg-tint: rgba(247,247,251,.8);
+    --ink:#2B2E3A; --ring:#ffffff99; --shadow:0 18px 50px rgba(0,0,0,.08);
+    --primary:#7C9EFF; --mint:#A7F3D0; --danger:#ffb7c5;
+    --card:#ffffffcc;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial;
+    color:var(--ink);
+    background:
+      linear-gradient(var(--bg-tint), var(--bg-tint)),
+      var(--bg-image) center/cover no-repeat fixed;
+    overflow:hidden; /* keep the layout like an app */
+  }
+
+  /* =============== LAYOUT ================= */
+  .app{
+    position:relative; inset:0; height:100vh; width:100vw;
+    display:grid;
+    grid-template-columns: 260px 1fr 260px;
+    grid-template-rows: 1fr 200px;
+    gap:20px; padding:20px;
+  }
+  /* side rails for items */
+  .rail{
+    background:var(--card); border:1px solid var(--ring); border-radius:24px;
+    box-shadow:var(--shadow); backdrop-filter: blur(6px);
+    padding:12px 12px 16px; display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  .rail h2{font-size:14px;margin:4px 4px 10px;color:#5b6275;font-weight:600}
+  .rail-scroll{overflow:auto; padding-right:6px}
+  .catalog{
+    display:grid; grid-template-columns:1fr; gap:10px;
+  }
+
+  /* center space (could be future map/hero) */
+  .stage{
+    background:radial-gradient(60% 50% at 50% 30%, rgba(124,158,255,.12), transparent 60%);
+    border-radius:28px; border:1px solid var(--ring); box-shadow:var(--shadow);
+    position:relative; overflow:hidden;
+  }
+
+  /* suitcase fixed in lower-right cell */
+  .suitcase-wrap{
+    grid-column: 3 / 4; grid-row: 2 / 3;
+    position:relative;
+  }
+  .suitcase{
+    position:absolute; inset:auto 0 0 0;
+    background:#fff; border:1px solid var(--ring); border-radius:28px;
+    box-shadow:var(--shadow);
+    padding:16px 16px 12px;
+  }
+  .suitcase .lid{
+    position:absolute; left:0; right:0; top:-8px; height:8px; border-radius:28px 28px 0 0;
+    background:linear-gradient(90deg, rgba(124,158,255,.35), #fff, rgba(255,183,197,.35));
+  }
+  .meta{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px}
+  .count{font-size:12px;color:#5b6275}
+  .go{
+    border:none; background:var(--primary); color:#fff; font-weight:700;
+    border-radius:14px; padding:10px 14px; box-shadow:var(--shadow);
+    transform:translateZ(0); transition:transform .18s ease, filter .18s ease, opacity .18s ease;
+  }
+  .go:disabled{opacity:.5; cursor:not-allowed}
+  .go:not(:disabled):hover{filter:brightness(1.05); transform:translateY(-1px)}
+  .grid-pack{
+    display:grid; grid-template-columns:repeat(5, 64px); gap:12px;
+    align-content:start;
+    min-height:96px;
+  }
+
+  /* =============== ITEM + SLOT STYLES ================= */
+  .chip{
+    display:flex; align-items:center; gap:10px; user-select:none; cursor:grab;
+    padding:10px 12px; border-radius:20px; background:#fff; border:1px solid var(--ring);
+    box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease;
+    touch-action:none;
+  }
+  .chip:active{cursor:grabbing}
+  .chip:hover{transform:translateY(-2px)}
+  .ico{
+    display:grid; place-items:center; width:44px;height:44px; border-radius:14px;
+    background:linear-gradient(135deg,#f7f9ff,#eef2ff); border:1px solid var(--ring);
+    position:relative; overflow:hidden;
+  }
+  .ico::after{
+    content:""; position:absolute; inset:0; border-radius:inherit;
+    background: radial-gradient(ellipse at center, rgba(124,158,255,.16), transparent 60%);
+    opacity:0; transition:opacity .2s ease;
+  }
+  .chip:hover .ico::after{opacity:1}
+  .emoji{font-size:26px; line-height:1}
+  .label{font-size:14px; font-weight:600}
+
+  /* suitcase slots */
+  .slot{
+    width:64px; height:64px; border-radius:18px; display:grid; place-items:center;
+    background:linear-gradient(135deg,#f7f9ff,#eef2ff); border:1px solid var(--ring);
+    box-shadow:var(--shadow); position:relative; overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  }
+  .slot::before{content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+  .slot.glow{box-shadow:0 0 0 4px rgba(124,158,255,.25), var(--shadow)}
+  .slot.filled{background:#fff}
+
+  /* ghost being dragged */
+  .ghost{
+    position:fixed; z-index:50; pointer-events:none; transform:translate(-50%,-50%) scale(1);
+    transition: transform .12s ease;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,.18));
+  }
+  .ghost .chip{transform:none; box-shadow:var(--shadow)}
+  .bounce{ animation: drop .32s cubic-bezier(.16,1,.3,1) }
+  @keyframes drop{
+    0%{transform:translateY(-6px) scale(.96)}
+    60%{transform:translateY(0) scale(1.02)}
+    100%{transform:translateY(0) scale(1)}
+  }
+
+  /* simple confetti pulse */
+  .confetti{
+    position:absolute; inset:0; pointer-events:none; overflow:hidden;
+  }
+  .confetti span{
+    position:absolute; width:6px; height:6px; border-radius:999px;
+    background:var(--mint); opacity:0; animation: pop .7s ease-out forwards;
+  }
+  @keyframes pop{
+    0%{transform:translate(var(--x,0),var(--y,0)) scale(.6); opacity:0}
+    30%{opacity:1}
+    100%{transform:translate(calc(var(--x,0) * 1.6), calc(var(--y,0) * 1.6)) scale(1); opacity:0}
+  }
+
+  /* ======= RESPONSIVE ======= */
+  @media (max-width: 1000px){
+    .app{ grid-template-columns: 1fr; grid-template-rows: 1fr 220px 220px; overflow:hidden }
+    .rail{ height:220px }
+    .suitcase-wrap{ grid-column:1; grid-row:3 }
+    .grid-pack{ grid-template-columns:repeat(6, 56px); gap:10px }
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <!-- LEFT RAIL -->
+    <aside class="rail">
+      <h2>Essentials</h2>
+      <div class="rail-scroll">
+        <div class="catalog" id="leftCatalog"></div>
+      </div>
+    </aside>
+
+    <!-- CENTER STAGE (room for future hero/map/guide) -->
+    <section class="stage"></section>
+
+    <!-- RIGHT RAIL -->
+    <aside class="rail">
+      <h2>Extras</h2>
+      <div class="rail-scroll">
+        <div class="catalog" id="rightCatalog"></div>
+      </div>
+    </aside>
+
+    <!-- SUITCASE (lower right) -->
+    <div class="suitcase-wrap">
+      <div class="suitcase" id="suitcase">
+        <div class="lid"></div>
+        <div class="meta">
+          <div class="count" id="count">0/7 items</div>
+          <button class="go" id="goBtn" disabled>Find destinations</button>
+        </div>
+        <div class="grid-pack" id="packGrid">
+          <!-- 15 slots -->
+        </div>
+        <div class="confetti" id="confetti"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ========== DATA ==========
+  const LEFT = [
+    { id:"beach",  name:"Beach Day",     emoji:"🏖️" },
+    { id:"swim",   name:"Swimsuit",      emoji:"🩱" },
+    { id:"flip",   name:"Flip-flops",    emoji:"🩴" },
+    { id:"sunscr", name:"Sunscreen",     emoji:"🧴" },
+    { id:"shades", name:"Sunglasses",    emoji:"🕶️" },
+    { id:"cap",    name:"Cap",           emoji:"🧢" }
+  ];
+  const RIGHT = [
+    { id:"snow",   name:"Cold Weather",  emoji:"❄️" },
+    { id:"trail",  name:"Trail Shoes",   emoji:"🥾" },
+    { id:"hoodie", name:"Hoodie",        emoji:"🧥" },
+    { id:"umbre",  name:"Umbrella",      emoji:"🌂" },
+    { id:"camera", name:"Film Camera",   emoji:"📷" },
+    { id:"soccer", name:"Soccer Ball",   emoji:"⚽️" }
+  ];
+
+  const MAX = 7; // enforce 5–7 later
+  const pack = new Map(); // slotIndex -> item
+
+  // ========== DOM ==========
+  const $left = document.getElementById('leftCatalog');
+  const $right = document.getElementById('rightCatalog');
+  const $packGrid = document.getElementById('packGrid');
+  const $count = document.getElementById('count');
+  const $go = document.getElementById('goBtn');
+  const $confetti = document.getElementById('confetti');
+
+  // Build 15 slots
+  for(let i=0;i<15;i++){
+    const s = document.createElement('div');
+    s.className = 'slot';
+    s.dataset.index = i;
+    s.addEventListener('click', () => removeFromSlot(i));
+    $packGrid.appendChild(s);
+  }
+
+  // Render rails
+  function renderRail(container, list){
+    container.innerHTML='';
+    list.forEach(item=>{
+      const el = chip(item);
+      container.appendChild(el);
+    });
+  }
+  function chip(item){
+    const el = document.createElement('div');
+    el.className = 'chip';
+    el.setAttribute('data-id', item.id);
+    el.innerHTML = `
+      <div class="ico"><span class="emoji">${item.emoji}</span></div>
+      <div class="label">${item.name}</div>
+    `;
+    makeDraggable(el, item);
+    return el;
+  }
+
+  // ========== DRAG & DROP (pointer events; works on touch + mouse) ==========
+  let dragging = null; // { item, el, ghost }
+  function makeDraggable(el, item){
+    el.addEventListener('pointerdown', (e)=>{
+      e.preventDefault();
+      el.setPointerCapture(e.pointerId);
+      startDrag(item, e.clientX, e.clientY);
+      const move = (ev)=> dragMove(ev.clientX, ev.clientY);
+      const up = (ev)=> {
+        endDrag(ev.clientX, ev.clientY);
+        el.releasePointerCapture(e.pointerId);
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', up);
+      };
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+    }, {passive:false});
+  }
+
+  function startDrag(item, x, y){
+    if (dragging) return;
+    const ghost = document.createElement('div');
+    ghost.className = 'ghost';
+    ghost.style.left = x+'px'; ghost.style.top = y+'px';
+    ghost.innerHTML = `<div class="chip"><div class="ico"><span class="emoji">${item.emoji}</span></div><div class="label">${item.name}</div></div>`;
+    document.body.appendChild(ghost);
+    dragging = { item, ghost };
+    highlightSlots(true);
+  }
+  function dragMove(x,y){
+    if(!dragging) return;
+    dragging.ghost.style.left = x+'px';
+    dragging.ghost.style.top = y+'px';
+    // highlight nearest empty slot under pointer
+    const slot = slotUnder(x,y);
+    document.querySelectorAll('.slot').forEach(s=> s.classList.remove('glow'));
+    if (slot && !slot.classList.contains('filled')) slot.classList.add('glow');
+  }
+  function endDrag(x,y){
+    if(!dragging) return;
+    const slot = slotUnder(x,y);
+    if (slot && !slot.classList.contains('filled') && pack.size < MAX){
+      placeInSlot(+slot.dataset.index, dragging.item, slot);
+      pulseConfetti(slot);
+    }
+    dragging.ghost.remove();
+    dragging = null;
+    highlightSlots(false);
+    updateCountAndCTA();
+  }
+
+  function slotUnder(x,y){
+    const el = document.elementFromPoint(x,y);
+    if(!el) return null;
+    return el.closest('.slot');
+  }
+  function highlightSlots(on){
+    document.querySelectorAll('.slot').forEach(s=>{
+      s.classList.toggle('glow', on && !s.classList.contains('filled'));
+    });
+  }
+
+  // ========== PLACE / REMOVE ==========
+  function placeInSlot(index, item, slotEl){
+    // Assign
+    pack.set(index, item);
+    // Visual
+    slotEl.innerHTML = `<span class="emoji">${item.emoji}</span>`;
+    slotEl.classList.add('filled','bounce');
+    slotEl.classList.remove('glow');
+    setTimeout(()=> slotEl.classList.remove('bounce'), 350);
+  }
+
+  function removeFromSlot(index){
+    if(!pack.has(index)) return;
+    pack.delete(index);
+    const slotEl = $packGrid.querySelector(`.slot[data-index="${index}"]`);
+    slotEl.classList.remove('filled');
+    slotEl.innerHTML = '';
+    updateCountAndCTA();
+  }
+
+  // ========== UI HELPERS ==========
+  function updateCountAndCTA(){
+    const n = pack.size;
+    $count.textContent = `${n}/${MAX} items`;
+    $go.disabled = !(n >= 5 && n <= 7);
+  }
+
+  function pulseConfetti(target){
+    const rect = target.getBoundingClientRect();
+    for(let i=0;i<10;i++){
+      const dot = document.createElement('span');
+      const rx = (Math.random()*60 - 30);
+      const ry = (Math.random()*-60 - 10);
+      dot.style.left = (rect.left + rect.width/2) + 'px';
+      dot.style.top  = (rect.top + rect.height/2) + 'px';
+      dot.style.setProperty('--x', rx+'px');
+      dot.style.setProperty('--y', ry+'px');
+      $confetti.appendChild(dot);
+      setTimeout(()=> dot.remove(), 720);
+    }
+  }
+
+  // CTA
+  document.getElementById('goBtn').addEventListener('click', ()=>{
+    const selected = [...pack.entries()]
+      .sort((a,b)=>a[0]-b[0])
+      .map(([,it])=>it.name);
+    alert(`Packed:\n- ${selected.join('\n- ')}\n\nNext: run your destination matcher and show results.`);
+  });
+
+  // init
+  renderRail($left, LEFT);
+  renderRail($right, RIGHT);
+  updateCountAndCTA();
+</script>
+</body>
+</html>

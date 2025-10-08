@@ -1,0 +1,230 @@
+
+
+#navia-send-home {
+    height: 30vh;
+    margin-top: -5%;
+}
+
+header .fly-høyere h1 {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    font-size: 3rem;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid black;
+    border-width: 2px;
+
+    background-image: "media/Pilot Utdanning/cockpit.bakgrunn.jpeg";
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    top: 0;
+    z-index: 1;
+    
+}
+
+.body {
+    z-index: 2;
+    background-color: white;
+    position: relative;
+    margin-top: 70vh;
+}
+
+/*SEARCH feltet*/
+.search {
+    --padding: 14px;
+
+    margin-bottom: 2%;
+    
+    width: max-content;
+    display: flex;
+    align-items: center;
+
+    padding: var(--padding);
+    border-radius: 28px;
+    background: #f6f6f6;
+    border-color: #333333;
+}
+
+
+.search-input {
+    font-size: 20px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 375;
+
+    color: #333333;
+    margin-left: var(--padding);
+
+
+    /*rett og slett gjøre search baren schmazingz*/
+    outline: none;
+    border: none;
+    background: transparent;
+
+    width: 600px;
+}
+
+
+/*  bilde-slider  */
+.slider-wrapper {
+    position: relative;
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+.selve-slider {
+    display: flex;
+    aspect-ratio: 16/9;
+    overflow-x: auto;
+    scroll-snap-type: mandatory;
+    scroll-behavior: smooth;
+    border-radius: 0.5rem;
+    box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0, 0, 0.25); /*bare i tilfelle jeg skal fjern bluelight card-box-shadow*/
+}
+
+.selve-slider img{
+    flex: 1 0 100%;
+    scroll-snap-align: start;
+    margin: 0 .1em;
+    border-radius: .5rem;
+    object-fit: cover;
+}
+
+.selve-slider-nav{
+    display: flex;
+    column-gap: 1rem;
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.selve-slider-nav a {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%; /*gjør knappene om til sirkler*/
+    background-color: #fff;
+    opacity: 0.75;
+    transition: opacity ease 250ms;
+}
+
+.selve-slider-nav a:hover {
+    opacity: 1;
+}
+
+/*
+.card{
+    flex: 0 0 20em;
+    height: 12em;
+    box-shadow: 10px 10px 0 -5px lightblue;
+    padding: 1em;
+    border-radius: 0.5em;
+    text-align: center;
+    align-content: center;
+}
+*/
+
+
+
+p {
+    --font-weight: 350;
+
+    font-family: "Rubik", sans-serif;
+    font-weight: var(--font-weight);
+}
+
+
+
+header .logo {
+    margin-bottom: -3%;
+}
+
+header .fly-høyere {
+    margin: auto;
+    margin-bottom: 5%;
+}
+
+/*  Animations  */
+@keyframes fadeInUp {
+    0%  {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 100%;
+        transform: translateY(0)
+    }
+}
+
+.animate-fade-up {
+    animation: fadeInUp 1s ease-out;
+}
+
+header .search {
+    margin: auto;
+}
+
+header .råd {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    gap: 2%;
+}
+
+
+
+header h2 a {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    text-size-adjust: 3px;
+    font-size: 65%;
+    letter-spacing: -0.5px;
+    
+    transform: scaleY(30px);
+    
+}
+
+.råd h2 a {
+    transition: color 75ms linear;
+}
+
+.råd h2 a:hover{
+    top: -1.5px;
+    color: rgba(22, 163, 74, 1);
+}
+
+
+
+
+
+
+
+
+
+li {
+    font-family: "Rubik", sans-serif; 
+    font-weight: 350;
+    margin-bottom: 2%;
+}
+
+h2 {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 8%;
+}
+
+
+html {
+    padding-left: 7%;
+    padding-right: 7%;
+    scroll-behavior: smooth;
+}

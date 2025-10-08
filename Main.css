@@ -1,0 +1,16 @@
+body {
+    background-color: aqua;
+}
+
+/*NAV-BAR*/
+.slide {
+    height: 100%;
+    width: 180px;
+    position: absolute;
+    margin-right: 100vw;
+    transition: 0.5s ease;
+}
+
+.slide h1 {
+
+}
