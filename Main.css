@@ -5,7 +5,7 @@ body {
 /*NAV-BAR*/
 .slide {
     height: 100%;
-    width: 250px;
+    width: 200px;
     position: fixed;
     background-color: #fff;
     transition: 0.5s ease;
@@ -70,9 +70,6 @@ ul.main li:hover a {
     padding-top: 0.15em;
     padding-bottom: 0.15em;
 }
-
-
-
 /*  Contact + terms  */
 /*.foot {
     transform: translateY(320px);
@@ -97,4 +94,56 @@ ul.main li:hover a {
 }
 .foot ul li:hover a {
     color: rgba(22, 163, 74, 1);
+}
+
+
+
+
+
+
+
+
+/*  TICKET ORDER  */
+.ticket-order {
+    position: absolute;
+    margin-top: 50vh;
+    margin-left: 50vh; /***/
+    font-family: "Poppins", sans-serif;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+.ticket-order h2{
+    font-weight: 600;
+}
+/*SEARCH feltet*/
+.search {
+    --padding: 10px;
+
+    margin-bottom: 2%;
+    
+    width: max-content;
+    display: flex;
+    align-items: center;
+
+    padding: var(--padding);
+    border-radius: 10px;
+    background: #f6f6f6;
+    border-color: #333333;
+}
+.search-input {
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 375;
+
+    color: #333333;
+    margin-left: var(--padding);
+
+
+    /*rett og slett gjøre search baren schmazingz*/
+    outline: none;
+    border: none;
+    background: transparent;
+
+    width: 600px;
 }
