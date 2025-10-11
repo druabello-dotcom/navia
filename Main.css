@@ -200,13 +200,13 @@ main {
 
 
 #date-overlay {
-    height: 70vh;
-    width: 80vw;
+    height: 85vh;
+    width: 85vw;
     position: fixed;
-    background-color: grey;
+    background-color: rgb(245, 245, 245);
     z-index: 2;
-    top: 15vh;
-    left: 10vw;
+    top: 7.5vh;
+    left: 7.5vw;
     border-radius: 10px;
     box-shadow: 0 .5rem 1rem 0.25rem rgba(0, 0, 0, 0.1);
     display: none;
