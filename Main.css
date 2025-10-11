@@ -1,19 +1,28 @@
+:root {
+    --menu-width: 200px;
+}
 body {
     background-color: antiquewhite;
+    margin: auto;
+    width: auto;
+    overflow-x: hidden;
 }
 
-/*NAV-BAR*/
+/*NAV-BAR (MENU)*/
 .slide {
-    height: 100%;
-    width: 200px;
+    height: 97.5vh;
+    width: var(--menu-width);
     position: fixed;
     background-color: #fff;
     transition: 0.5s ease;
     box-shadow: 0 1.5rem 3rem -0.75rem rgba(0, 0, 0, 0.5);
-    margin: .15em;
+    left: 1.25vh;
+    top: 1.25vh;
+    z-index: 1;
 
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
 }
 .slide h1 {
     color: rgba(22, 163, 74, 1);
@@ -95,34 +104,57 @@ ul.main li:hover a {
 .foot ul li:hover a {
     color: rgba(22, 163, 74, 1);
 }
+/* FERDIG med MENU */
 
+.hero-section {
+    --height: 65vh;
+    height: var(--height);
+    width: 100vh;
+    z-index: -1;
+}
+.hero-img {
+    object-fit: cover; /*basically fit-content for bildet. Gjør at det dekker hele hero-section*/
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
 
-
-
-
-
-
-
+main {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    padding-left: calc(var(--menu-width) / 2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: antiquewhite;
+}
 /*  TICKET ORDER  */
 .ticket-order {
-    position: absolute;
-    margin-top: 30vh;
-    margin-left: 50vh; /***/
     font-family: "Poppins", sans-serif;
     background-color: white;
     border-radius: 10px;
+    width: fit-content;
+    box-shadow: 0 .5rem 1rem 0.25rem rgba(0, 0, 0, 0.1);
 
-    --padding: 1.5em;
-    padding-left: var(--padding);
-    padding-right: var(--padding);
-    padding-top: var(--padding);
-    padding-bottom: var(--padding);
+    padding: 1.5em;
+    position: relative;
+    transform: translateY(10vh);
+    top: -20vh;
 }
 .ticket-order h2{
     font-weight: 600;
     margin: 0;
+    margin-bottom: .5em;
 }
-
+.fra-til {
+    display: flex;
+    border-top: solid rgba(192, 192, 192, 0.2);
+}
+.right-arrow-icon {
+    transform: translateY(1.2em);
+    margin: 0 .5em;
+}
 /*SEARCH feltet*/
 .search {
     --padding: 10px;
@@ -143,15 +175,39 @@ ul.main li:hover a {
     font-size: 20px;
     font-family: "Poppins", sans-serif;
     font-weight: 375;
-
     color: #333333;
     margin-left: var(--padding);
-
 
     /*rett og slett gjøre search baren schmazingz*/
     outline: none;
     border: none;
     background: transparent;
 
-    width: 300px;
+    width: 200px;
+}
+#dato {
+    margin-left: .5em;
+}
+#person-ap {
+    margin-left: .5em;
+}
+.dato-pers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+#date-overlay {
+    height: 70vh;
+    width: 80vw;
+    position: fixed;
+    background-color: grey;
+    z-index: 2;
+    top: 15vh;
+    left: 10vw;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem 0.25rem rgba(0, 0, 0, 0.1);
+    display: none;
 }
