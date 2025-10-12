@@ -127,7 +127,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(230, 225, 211);
+    background-color: antiquewhite;
 }
 /*  TICKET ORDER  */
 .ticket-order {
@@ -190,7 +190,6 @@ main {
 }
 #person-ap {
     margin-left: .5em;
-    position: relative;
 }
 .dato-pers {
     display: flex;
@@ -200,72 +199,19 @@ main {
 }
 
 #reisende-overlay {
-    height: 40vh;
-    width: 370px;
-    position: absolute;
-    background-color: rgb(245, 245, 245);
-    z-index: 3;
-    top: calc(100% + 8px);
-    right: 0;
+    height: 85vh;
+    width: 25vw;
+    position: fixed;
+    background-color: aquamarine;
+    z-index: 2;
+    top: 7.5vh;
+    left: 7.5vw;
     border-radius: 10px;
     box-shadow: 0 .5rem 1rem 0.25rem rgba(0, 0, 0, 0.1);
     display: none;
     text-transform: uppercase;
     font-family: "Poppins", sans-serif;
     font-weight: var(--font-weight);
-    padding: 1em;
-}
-.amount-pers {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-#reisende-top {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-.person-type {
-    max-width: 50%;
-}
-.counter-pers {
-    display: flex;
-    flex-direction: column;
-    max-width: 50%;
-}
-.counter {
-    display: flex;
-    flex-direction: row;
-    justify-items: center;
-}
-.counter-pers p {
-    font-size: 1.2em;
-    border: solid grey;
-    border-width: thin;
-    border-radius: 5px;
-    padding: 0.3em 0.8em;
-    margin: 0;
-}
-.plus-minus {
-    --dimensions-plus-minus: 1.3em;
-    height: var(--dimensions-plus-minus);
-    width: var(--dimensions-plus-minus);
-    line-height: 1;
-    color: white;
-    background-color: rgba(22, 163, 74, 1);
-    border: none;
-    margin: 0 0.3em;
-    border-radius: 50%;
-    font-size: 2em;
-    padding: 0;
-}
-.plus-minus:hover {
-    background-color: rgb(18, 136, 62);
-    border: none;
-    margin: 0 0.3em;
-    border-radius: 50%;
-    padding: 0;
 }
 
 #date-overlay {
@@ -326,7 +272,4 @@ main {
     padding: 0;
     grid-template-columns: repeat(7,1fr);
     list-style: none;
-}
-#close-date-button {
-    margin-left: 90%;
 }

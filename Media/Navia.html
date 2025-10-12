@@ -1,63 +1,58 @@
 <!DOCTYPE html>
-<html lang="no">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- saved from url=(0031)http://localhost:5500/Main.html -->
+<html lang="no"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navia</title>
-    <link rel="stylesheet" href="Main.css" />
+    <link rel="stylesheet" href="./Navia_files/Main.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Navia_files/css2" rel="stylesheet">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Boldonse&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Navia_files/css2(1)" rel="stylesheet">
 
     <!--- pil til høyre -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_right_alt" />
-    <script src="./Main.js" type="module"></script>
+    <link rel="stylesheet" href="./Navia_files/css2(2)">
+    <script src="./Navia_files/Main.js" type="module"></script>
 </head>
 
 <body>
     <div class="slide">
         <h1>MENU</h1>
         <ul class="main">
-            <li><a href="#">Bestill Fly</a></li>
-            <li><a href="#">Flights</a></li>
-            <li><a href="#">Airports</a></li>
-            <li><a href="#">Airlines</a></li>
-            <li><a href="#">Rides</a></li>
-            <li><a href="#">Locations</a></li>
-            <li><a href="#">Tickets</a></li>
+            <li><a href="http://localhost:5500/Main.html#">Bestill Fly</a></li>
+            <li><a href="http://localhost:5500/Main.html#">Flights</a></li>
+            <li><a href="http://localhost:5500/Main.html#">Airports</a></li>
+            <li><a href="http://localhost:5500/Main.html#">Airlines</a></li>
+            <li><a href="http://localhost:5500/Main.html#">Rides</a></li>
+            <li><a href="http://localhost:5500/Main.html#">Locations</a></li>
+            <li><a href="http://localhost:5500/Main.html#">Tickets</a></li>
         </ul>
         <div class="foot">
             <ul>
-                <li><a href="#">Contact us</a></li>
-                <li><a href="#">Terms of Use</a></li>
+                <li><a href="http://localhost:5500/Main.html#">Contact us</a></li>
+                <li><a href="http://localhost:5500/Main.html#">Terms of Use</a></li>
             </ul>
         </div>
     </div>
 
     <section class="hero-section">
-        <img src="Media/heroimg3.jpg" alt="departures_img" class="hero-img">
+        <img src="./Navia_files/heroimg3.jpg" alt="girl going in plane" class="hero-img">
     </section>
     <main>
         <section class="ticket-order">
             <h2>Bestill din neste reise</h2>
             <div class="fra-til">
                 <div class="search">
-                    <input class="search-input" type="search" placeholder="Fra" />
+                    <input class="search-input" type="search" placeholder="Fra">
                     <!-- placeholder gjør at hvis brukeren ikke har noe krevet inn i input, så står det bare "Search"-->
                 </div>
                 <span class="right-arrow-icon material-symbols-outlined">arrow_right_alt</span>
                 <div class="search">
-                    <input class="search-input" type="search" placeholder="Til" />
+                    <input class="search-input" type="search" placeholder="Til">
                 </div>
 
                 <!--med JavaScript-->
@@ -67,46 +62,23 @@
                 <!--Reisende dropdown meny-->
                 <div class="search" id="person-ap">
                     <button type="button" id="open-reisende">1 voksen</button>
-
-                    <section id="reisende-overlay">
-                        <div id="reisende-top">
-                            <h2>Reisende</h2>
-                            <button type="button" id="close-reisende">close</button>
-                        </div>
-                        <div class="reisende-main">
-                            <div class="amount-pers">
-                                <div class="person-type">
-                                    <p>Voksen</p>
-                                    <p>Barn (2-11 år)</p>
-                                    <p>spedbarn (0-23 måneder)</p>
-                                </div>
-                                <!--  fancy plus, minus knappene  -->
-                                <div class="counter-pers">
-                                    <div class="counter">
-                                        <button type="button" class="plus-minus">-</button>
-                                        <p>1</p>
-                                        <button type="button" class="plus-minus">+</button>
-                                    </div>
-                                    <div class="counter">
-                                        <button type="button" class="plus-minus">-</button>
-                                        <p>0</p>
-                                        <button type="button" class="plus-minus">+</button>
-                                    </div>
-                                    <div class="counter">
-                                        <button type="button" class="plus-minus">-</button>
-                                        <p>0</p>
-                                        <button type="button" class="plus-minus">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
                 </div>
+                <section>
+                    <div class="reisende-overlay">
+                        <h2>Reisende</h2>
+                        <button type="button" id="close-reisende">close</button>
+                        laksdjølfkjasf
+                    </div>
+                </section>
             </div>
+
+
+
         </section>
     </main>
 
     <section id="date-overlay">
+        <button type="button" id="close-date-button">close</button>
         <div class="calendar">
             <div class="oct-cal">
                 <h2>Oktober</h2>
@@ -244,8 +216,45 @@
                 </ul>
             </div>
         </div>
-        <button type="button" id="close-date-button">Ferdig</button>
     </section>
-</body>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
 
-</html>
+
+</body></html>
