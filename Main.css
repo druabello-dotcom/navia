@@ -199,9 +199,47 @@ main {
     width: 100%;
 }
 
+#reisende-top {
+    margin-bottom: 2em;
+    border-bottom: solid rgba(192, 192, 192, 0.2);
+}
+
+#open-date-button, 
+#open-reisende {
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 375;
+    color: #333333;
+    width: 10em;
+
+    /*rett og slett gjøre knappen schmazingz*/
+    outline: none;
+    border: none;
+    background: transparent;
+}
+#dato:hover, #person-ap:hover {
+    background-color: #e1e1e1;
+}
+#close-reisende {
+    margin-top: -0.6em;
+    font-size: 1em;
+    border-radius: 25px;
+    padding: 0.7em 1em;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    outline: none;
+    border: none;
+    background-color: rgba(22, 163, 74, 1);
+    transition: 75ms linear;
+    text-transform: uppercase;
+}
+#close-reisende:hover {
+    background-color: rgb(12, 92, 41);
+}
+
 #reisende-overlay {
-    height: 40vh;
-    width: 370px;
+    height: fit-content;
+    width: 420px;
     position: absolute;
     background-color: rgb(245, 245, 245);
     z-index: 3;
@@ -225,26 +263,40 @@ main {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    padding: .5em;
+    margin: .5em;
 }
 .person-type {
-    max-width: 50%;
+    margin-top: -.5em;
+    max-width: 60%;
+}
+.person-type p {
+    margin-bottom: 2.3em;
 }
 .counter-pers {
+    margin-top: .2em;
     display: flex;
     flex-direction: column;
-    max-width: 50%;
+    max-width: 40%;
 }
 .counter {
     display: flex;
     flex-direction: row;
     justify-items: center;
+    margin-bottom: 1em;
 }
 .counter-pers p {
+    width: 2em;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     font-size: 1.2em;
-    border: solid grey;
+    border: solid rgba(192, 192, 192, 0.5);
     border-width: thin;
     border-radius: 5px;
-    padding: 0.3em 0.8em;
+    /*padding: 0.3em 0.8em;*/
     margin: 0;
 }
 .plus-minus {
@@ -259,9 +311,10 @@ main {
     border-radius: 50%;
     font-size: 2em;
     padding: 0;
+    transition: 75ms linear;
 }
 .plus-minus:hover {
-    background-color: rgb(18, 136, 62);
+    background-color: rgb(12, 92, 41);
     border: none;
     margin: 0 0.3em;
     border-radius: 50%;
