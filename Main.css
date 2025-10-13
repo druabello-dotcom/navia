@@ -464,7 +464,9 @@ main {
 .big-grid:hover {
     transform: translateY(0) !important;
 }
-.big-grid .label button {
+
+.big-grid .label a {
+    text-decoration: none;
     display: flex;
     align-items: center;
     color: white !important;
@@ -480,7 +482,7 @@ main {
     margin-bottom: 2em;
     transition: 175ms ease-out;
 }
-.big-grid .label button:hover {
+.big-grid .label a:hover {
     background-color: rgb(12, 92, 41);
     font-size: 1.025em;
 }
@@ -600,4 +602,5 @@ main {
     color: white;
     font-family: "Poppins", sans-serif;
     width: max-content;
+    text-shadow: 2rem 2rem 1em black;
 }
