@@ -110,8 +110,9 @@ ul.main li:hover a {
 .hero-section {
     --height: 65vh;
     height: var(--height);
-    width: 100vh;
+    width: 100vw;
     z-index: -1;
+    place-items: center;
 }
 .hero-img {
     object-fit: cover; /*basically fit-content for bildet. Gjør at det dekker hele hero-section*/
@@ -545,16 +546,18 @@ main {
 
 .footer-section ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .footer-section ul li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.8em;
 }
 
 .footer-section a {
     color: #94a3b8;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 200ms;
 }
 
 .footer-section a:hover {
@@ -568,4 +571,33 @@ main {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
     color: #94a3b8;
+}
+/*  Animations  */
+@keyframes fadeInUp {
+    0%  {
+        opacity: 0;
+        transform: translateY(7.5vh);
+    }
+    100% {
+        opacity: 100%;
+        transform: translateY(0)
+    }
+}
+
+.animate-fade-up {
+    animation: fadeInUp 1s ease-out;
+}
+/**/
+.hero-section h1 {
+    margin: 0;
+    position: relative;
+    top: 20vh;
+    left: 5vw;
+    font-size: 5em;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    width: max-content;
 }
