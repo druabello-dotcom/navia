@@ -117,6 +117,7 @@ ul.main li:hover a {
     width: 100%;
     height: 100%;
     position: fixed;
+    transform: translateY(-2.5em);
 }
 
 main {
@@ -128,6 +129,7 @@ main {
     flex-direction: column;
     align-items: center;
     background-color: rgb(230, 225, 211);
+    padding-bottom: 10em;
 }
 /*  TICKET ORDER  */
 .ticket-order {
@@ -199,6 +201,9 @@ main {
     width: 100%;
 }
 
+#reisende-overlay {
+    z-index: 10;
+}
 #reisende-top {
     margin-bottom: 2em;
     border-bottom: solid rgba(192, 192, 192, 0.2);
@@ -338,7 +343,9 @@ main {
 }
 .calendar {
     display: flex;
+    padding-bottom: 1.5em;
     margin: 15vh auto;
+    margin-bottom: 0;
     width: 90%;
     align-items: center;
     justify-content: space-around;
@@ -380,6 +387,124 @@ main {
     grid-template-columns: repeat(7,1fr);
     list-style: none;
 }
+.reset-ferdig {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2em 4em;
+}
+#reset {
+    border-radius: 10px;
+    padding: 0.7em 1em;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    outline: none;
+    border: none;
+    background-color: rgb(131, 149, 138);
+    transition: 75ms linear;
+    text-transform: uppercase;
+}
+#reset:hover {
+    background-color: rgb(89, 101, 94);
+}
 #close-date-button {
-    margin-left: 90%;
+    font-size: 1.2em;
+    border-radius: 35px;
+    padding: 0.7em 1em;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    outline: none;
+    border: none;
+    background-color: rgba(22, 163, 74, 1);
+    transition: 75ms linear;
+    text-transform: uppercase;
+}
+#close-date-button:hover {
+    background-color: rgb(12, 92, 41);
+}
+
+.grid-img {
+    display: grid;
+    column-gap: 0;
+    row-gap: 1em;
+    grid-template-columns: repeat(4, 300px);
+    grid-auto-rows: 300px 300px;
+    grid-template-areas: 
+        "finn-beste-pris NYC HK NZ"
+        "finn-beste-pris Beijing Madrid Lyon";
+}
+.grid-des {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    --dimensions-grid-img: 250px;
+    width: var(--dimensions-grid-img);
+    height: 100%;
+    width: 90%;
+    transition: 200ms ease-out;
+    box-shadow: 0 .5rem 1rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+.grid-des:hover {
+    transform: translateY(-0.5em);
+}
+.grid-des img {
+    object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.big-grid .label {
+    display: flex;
+    flex-direction: column !important;
+    height: 30%;
+}
+.big-grid:hover {
+    transform: translateY(0) !important;
+}
+.big-grid .label button {
+    display: flex;
+    align-items: center;
+    color: white !important;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 1em .5em 1em .5em;
+    font-family: "Poppins", sans-serif;
+    outline: none;
+    border: none;
+    background-color: rgba(22, 163, 74, 1);
+    transition: 75ms linear;
+    text-transform: uppercase;
+    margin-bottom: 2em;
+    transition: 175ms ease-out;
+}
+.big-grid .label button:hover {
+    background-color: rgb(12, 92, 41);
+    font-size: 1.025em;
+}
+.grid-des .label {
+    position:absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1em  .75em;
+    background: white;
+    color:#fff;
+    font-family:"Poppins",sans-serif;
+    align-items: center;
+}
+.grid-des .label h3 {
+    margin: .25em .25em;
+    font-weight: 400;
+    color: black;
+}
+.grid-des .label p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    opacity:.95;
+    color: rgba(22, 163, 74, 1);
 }
