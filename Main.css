@@ -1,5 +1,6 @@
 :root {
     --menu-width: 200px;
+    --text-primary: #0f172a; /* or any solid color */
 }
 body {
     background-color: antiquewhite;
@@ -18,7 +19,7 @@ body {
     box-shadow: 0 1.5rem 3rem -0.75rem rgba(0, 0, 0, 0.5);
     left: 1.25vh;
     top: 1.25vh;
-    z-index: 1;
+    z-index: 2;
 
     display: flex;
     flex-direction: column;
@@ -118,6 +119,7 @@ ul.main li:hover a {
     height: 100%;
     position: fixed;
     transform: translateY(-2.5em);
+    z-index: -1;
 }
 
 main {
@@ -129,7 +131,6 @@ main {
     flex-direction: column;
     align-items: center;
     background-color: rgb(230, 225, 211);
-    padding-bottom: 10em;
 }
 /*  TICKET ORDER  */
 .ticket-order {
@@ -507,4 +508,64 @@ main {
     font-size: 1rem;
     opacity:.95;
     color: rgba(22, 163, 74, 1);
+}
+
+
+ /* FOOTER */
+ footer {
+    margin-top: 10vh;
+    background: white;
+    color: black;
+    padding: 5rem 3rem 3rem;
+    position: relative;  /* so z-index applies if needed */
+    z-index: 1;
+    left: 0vw;
+    font-family: "Poppins", sans-serif;
+}
+
+.footer-content {
+    max-width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.footer-section p {
+    color: #94a3b8;
+    line-height: 1.7;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-section a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-section a:hover {
+    color: #5a636f;
+}
+
+.footer-bottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: #94a3b8;
 }
