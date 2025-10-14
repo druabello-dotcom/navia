@@ -163,3 +163,48 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+/*SEARCH feltet*/
+.search {
+    --padding: 14px;
+
+    margin-bottom: 2%;
+    
+    width: max-content;
+    
+    align-items: center;
+
+    padding: var(--padding);
+    border-radius: 28px;
+    background: #f6f6f6;
+    border-color: #333333;
+}
+
+
+.search-input {
+    font-size: 20px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 375;
+
+    color: #333333;
+    margin-left: var(--padding);
+
+
+    /*rett og slett gjøre search baren schmazingz*/
+    outline: none;
+    border: none;
+    background: transparent;
+
+    width: 600px;
+}
+
+
+
+
+/*NAV-BAR*/
+.slide {
+    height: 100%;
+    width: 180px;
+    position: absolute;
+    margin-right: 100vw;
+}

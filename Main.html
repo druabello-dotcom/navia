@@ -1,30 +1,355 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navia</title>
-    <link rel="stylesheet" href="">
-</head>
-<body>
-    
+<html lang="no">
 
-</body>
-<div class="slide">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navia</title>
+    <link rel="stylesheet" href="Main.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Boldonse&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet" />
+
+    <!--- pil til høyre -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_right_alt" />
+    <script src="./Main.js" type="module"></script>
+</head>
+
+<body>
+    <div class="slide">
         <h1>MENU</h1>
-        <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Trending</a></li>
-            <li><a href="#">Messages</a></li>
-            <li><a href="#">File manager</a></li>
-            <li><a href="#">Portfolio</a></li>
-            <li><a href="#">Saved</a></li>
-            <li><a href="#">Settings</a></li>
+        <ul class="main">
+            <li><a href="#">Bestill Fly</a></li>
+            <li><a href="#">Flights</a></li>
+            <li><a href="#">Airports</a></li>
+            <li><a href="#">Airlines</a></li>
+            <li><a href="#">Rides</a></li>
+            <li><a href="#">Locations</a></li>
+            <li><a href="#">Tickets</a></li>
         </ul>
+        <div class="foot">
+            <ul>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Terms of Use</a></li>
+            </ul>
+        </div>
     </div>
 
+    <section class="hero-section">
+        <img src="Media/heroimg3.jpg" alt="departures_img" class="hero-img">
+        <h1 class="animate-fade-up">Velkommen til Navia</h1>
+    </section>
+    <main>
+        <section class="ticket-order">
+            <h2>Bestill din neste reise</h2>
+            <div class="fra-til">
+                <div class="search">
+                    <input class="search-input" type="search" placeholder="Fra" />
+                    <!-- placeholder gjør at hvis brukeren ikke har noe krevet inn i input, så står det bare "Search"-->
+                </div>
+                <span class="right-arrow-icon material-symbols-outlined">arrow_right_alt</span>
+                <div class="search">
+                    <input class="search-input" type="search" placeholder="Til" />
+                </div>
 
+                <!--med JavaScript-->
+                <div class="search" id="dato">
+                    <button type="button" id="open-date-button">11.okt</button>
+                </div>
+                <!--Reisende dropdown meny-->
+                <div class="search" id="person-ap">
+                    <button type="button" id="open-reisende">1 voksen</button>
+
+                    <section id="reisende-overlay">
+                        <div id="reisende-top">
+                            <h2>Reisende</h2>
+                            <button type="button" id="close-reisende">Ferdig</button>
+                        </div>
+                        <div class="reisende-main">
+                            <div class="amount-pers">
+                                <div class="person-type">
+                                    <p>Voksen</p>
+                                    <p>Barn (2-11 år)</p>
+                                    <p>spedbarn (0-23 måneder)</p>
+                                </div>
+                                <!--  fancy plus, minus knappene  -->
+                                <div class="counter-pers">
+                                    <div class="counter">
+                                        <button type="button" class="plus-minus">-</button>
+                                        <p>1</p>
+                                        <button type="button" class="plus-minus">+</button>
+                                    </div>
+                                    <div class="counter">
+                                        <button type="button" class="plus-minus">-</button>
+                                        <p>0</p>
+                                        <button type="button" class="plus-minus">+</button>
+                                    </div>
+                                    <div class="counter">
+                                        <button type="button" class="plus-minus">-</button>
+                                        <p>0</p>
+                                        <button type="button" class="plus-minus">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <!--  grid images  -->
+        <section class="extra">
+            <div class="grid-img">
+                <div class="grid-des big-grid" style="grid-area: finn-beste-pris">
+                    <img src="Media/grid.main/locations/happy_family_on_a_trip.jpg" alt="Family on a Trip">
+                    <div class="label">
+                        <h3 class="country">Finn de beste prisene på din neste reise</h3>
+                        <a href="" class="pris">Vis de LAVESTE prisene</a>
+                    </div>
+                </div>
+                <div class="grid-des" style="grid-area: NYC"> <!-- New York -->
+                    <img src="Media/grid.main/locations/NYC.avif" alt="NYC">
+                    <div class="label">
+                        <h3 class="country">New York</h3>
+                        <p class="pris">Fra 6150,-</p>
+                    </div>
+                </div>
+                <div class="grid-des" style="grid-area: HK"> <!-- Hong Kong -->
+                    <img src="Media/grid.main/locations/hongkong_architecture.jpg" alt="Hong Kong">
+                    <div class="label">
+                        <h3 class="country">Hong Kong</h3>
+                        <p class="pris">Fra 4950,-</p>
+                    </div>
+                </div>
+                <div class="grid-des" style="grid-area: NZ"> <!-- New Zealand -->
+                    <img src="Media/grid.main/locations/new_zealand.jpeg" alt="New Zealand">
+                    <div class="label">
+                        <h3 class="country">New Zealand</h3>
+                        <p class="pris">Fra 6150,-</p>
+                    </div>
+                </div>
+                <div class="grid-des" style="grid-area: Beijing"> <!-- Beijing -->
+                    <img src="Media/grid.main/locations/Beijing.jpeg" alt="Beijing">
+                    <div class="label">
+                        <h3 class="country">Beijing</h3>
+                        <p class="pris">Fra 6150,-</p>
+                    </div>
+                </div>
+                <div class="grid-des" style="grid-area: Madrid"> <!-- Madrid -->
+                    <img src="Media/grid.main/locations/Madrid.jpeg" alt="Madrid">
+                    <div class="label">
+                        <h3 class="country">Madrid</h3>
+                        <p class="pris">Fra 6150,-</p>
+                    </div>
+                </div>
+                <div class="grid-des" style="grid-area: Lyon"> <!-- Lyon -->
+                    <img src="Media/grid.main/locations/Lyon.webp" alt="Lyon">
+                    <div class="label">
+                        <h3 class="country">Lyon</h3>
+                        <p class="pris">Fra 1990,-</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--  FOOTER  -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Navia</h3>
+                    <p>Skandinavias ledende flyselskap. Vi tar deg trygt til drømmedestinasjonene dine.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Reise</h3>
+                    <ul>
+                        <li><a href="#">Bestill fly</a></li>
+                        <li><a href="#">Innsjekking</a></li>
+                        <li><a href="#">Flystatus</a></li>
+                        <li><a href="#">Destinasjoner</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Service</h3>
+                    <ul>
+                        <li><a href="#">Kundeservice</a></li>
+                        <li><a href="#">Bagasje</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Kontakt</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Om oss</h3>
+                    <ul>
+                        <li><a href="#">Vårt selskap</a></li>
+                        <li><a href="#">Karriere</a></li>
+                        <li><a href="#">Bærekraft</a></li>
+                        <li><a href="#">Presse</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Navia Airlines. Alle rettigheter reservert.</p>
+            </div>
+        </footer>
+    </main>
+
+    <section id="date-overlay">
+        <div class="calendar">
+            <div class="oct-cal">
+                <h2>Oktober</h2>
+                <ul class="days">
+                    <li>M</li>
+                    <li>T</li>
+                    <li>O</li>
+                    <li>T</li>
+                    <li>F</li>
+                    <li>L</li>
+                    <li>S</li>
+                </ul>
+                <ul class="date">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li>7</li>
+                    <li>8</li>
+                    <li>9</li>
+                    <li>10</li>
+                    <li>11</li>
+                    <li>12</li>
+                    <li>13</li>
+                    <li>14</li>
+                    <li>15</li>
+                    <li>16</li>
+                    <li>17</li>
+                    <li>18</li>
+                    <li>19</li>
+                    <li>20</li>
+                    <li>21</li>
+                    <li>22</li>
+                    <li>23</li>
+                    <li>24</li>
+                    <li>25</li>
+                    <li>26</li>
+                    <li>27</li>
+                    <li>28</li>
+                    <li>29</li>
+                    <li>30</li>
+                    <li>31</li>
+                </ul>
+            </div>
+            <div class="nov-cal">
+                <h2>November</h2>
+                <ul class="days">
+                    <li>M</li>
+                    <li>T</li>
+                    <li>O</li>
+                    <li>T</li>
+                    <li>F</li>
+                    <li>L</li>
+                    <li>S</li>
+                </ul>
+                <ul class="date">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li>7</li>
+                    <li>8</li>
+                    <li>9</li>
+                    <li>10</li>
+                    <li>11</li>
+                    <li>12</li>
+                    <li>13</li>
+                    <li>14</li>
+                    <li>15</li>
+                    <li>16</li>
+                    <li>17</li>
+                    <li>18</li>
+                    <li>19</li>
+                    <li>20</li>
+                    <li>21</li>
+                    <li>22</li>
+                    <li>23</li>
+                    <li>24</li>
+                    <li>25</li>
+                    <li>26</li>
+                    <li>27</li>
+                    <li>28</li>
+                    <li>29</li>
+                    <li>30</li>
+                    <li>31</li>
+                </ul>
+            </div>
+            <div class="des-cal">
+                <h2>Desember</h2>
+                <ul class="days">
+                    <li>M</li>
+                    <li>T</li>
+                    <li>O</li>
+                    <li>T</li>
+                    <li>F</li>
+                    <li>L</li>
+                    <li>S</li>
+                </ul>
+                <ul class="date">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li>7</li>
+                    <li>8</li>
+                    <li>9</li>
+                    <li>10</li>
+                    <li>11</li>
+                    <li>12</li>
+                    <li>13</li>
+                    <li>14</li>
+                    <li>15</li>
+                    <li>16</li>
+                    <li>17</li>
+                    <li>18</li>
+                    <li>19</li>
+                    <li>20</li>
+                    <li>21</li>
+                    <li>22</li>
+                    <li>23</li>
+                    <li>24</li>
+                    <li>25</li>
+                    <li>26</li>
+                    <li>27</li>
+                    <li>28</li>
+                    <li>29</li>
+                    <li>30</li>
+                    <li>31</li>
+                </ul>
+            </div>
+        </div>
+        <div class="reset-ferdig">
+            <button type="button" id="reset">Tilbakestill</button>
+            <button type="button" id="close-date-button">Ferdig</button>
+        </div>
+    </section>
 
 </body>
+
 </html>

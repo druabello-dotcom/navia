@@ -1,0 +1,275 @@
+:root {
+    --menu-width: 200px;
+}
+body {
+    background-color: antiquewhite;
+    margin: auto;
+    width: auto;
+    overflow-x: hidden;
+}
+
+/*NAV-BAR (MENU)*/
+.slide {
+    height: 97.5vh;
+    width: var(--menu-width);
+    position: fixed;
+    background-color: #fff;
+    transition: 0.5s ease;
+    box-shadow: 0 1.5rem 3rem -0.75rem rgba(0, 0, 0, 0.5);
+    left: 1.25vh;
+    top: 1.25vh;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+.slide h1 {
+    color: rgba(22, 163, 74, 1);
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    text-align: center;
+    pointer-events: none;
+}
+.slide ul {
+    padding: 0;
+}
+.slide ul.main {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+.slide ul li{
+    --font-weight: 400;
+    list-style: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: var(--font-weight);
+    padding-bottom: 0px;
+    line-height: 2;
+
+    --margin: 20px;
+    margin-right: var(--margin);
+    margin-left: var(--margin);
+    margin-bottom: 3px;
+}
+ul li a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    text-transform: capitalize;
+    transition: 0.155s ease-out;
+
+    border-radius: 3%;
+}
+ul.main li a {
+    display: block;
+    border-radius: 10px;
+    padding: .15em 0 .15em;
+    margin: 0;
+
+}
+ul.main li:hover a {
+    border-radius: 10px;
+    background-color: rgba(22, 163, 74, 1);
+    color: white;
+    transform: translateY(-1px);
+
+    --padding: 0.5em;    
+    padding-left: var(--padding);
+    padding-top: 0.15em;
+    padding-bottom: 0.15em;
+}
+/*  Contact + terms  */
+/*.foot {
+    transform: translateY(320px);
+    color: black;
+    position: fixed;
+    margin-bottom: 200px;
+}*/
+.foot {
+    flex: 0 0 auto;
+    padding: px 16px;
+    border-top: 1px solid #eee;
+    margin-bottom: .5em;
+    color: #111;
+}
+.foot li + li {
+    margin-top: -2px;
+}
+.foot li a {
+    transition: color 75ms linear;
+    display: inline;
+    padding: 0;
+}
+.foot ul li:hover a {
+    color: rgba(22, 163, 74, 1);
+}
+/* FERDIG med MENU */
+
+.hero-section {
+    --height: 65vh;
+    height: var(--height);
+    width: 100vh;
+    z-index: -1;
+}
+.hero-img {
+    object-fit: cover; /*basically fit-content for bildet. Gjør at det dekker hele hero-section*/
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+main {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    padding-left: calc(var(--menu-width) / 2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: antiquewhite;
+}
+/*  TICKET ORDER  */
+.ticket-order {
+    font-family: "Poppins", sans-serif;
+    background-color: white;
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: 0 .5rem 1rem 0.25rem rgba(0, 0, 0, 0.1);
+
+    padding: 1.5em;
+    position: relative;
+    transform: translateY(10vh);
+    top: -20vh;
+}
+.ticket-order h2{
+    font-weight: 600;
+    margin: 0;
+    margin-bottom: .5em;
+}
+.fra-til {
+    display: flex;
+    border-top: solid rgba(192, 192, 192, 0.2);
+}
+.right-arrow-icon {
+    transform: translateY(1.2em);
+    margin: 0 .5em;
+}
+/*SEARCH feltet*/
+.search {
+    --padding: 10px;
+
+    margin-top: 1em;
+    margin-bottom: 0;
+    
+    width: max-content;
+    display: flex;
+    align-items: center;
+
+    padding: var(--padding);
+    border-radius: 10px;
+    background: #f6f6f6;
+    border-color: #333333;
+}
+.search-input {
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 375;
+    color: #333333;
+    margin-left: var(--padding);
+
+    /*rett og slett gjøre search baren schmazingz*/
+    outline: none;
+    border: none;
+    background: transparent;
+
+    width: 200px;
+}
+#dato {
+    margin-left: .5em;
+}
+#person-ap {
+    margin-left: .5em;
+}
+.dato-pers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#reisende-overlay {
+    height: 85vh;
+    width: 25vw;
+    position: fixed;
+    background-color: aquamarine;
+    z-index: 2;
+    top: 7.5vh;
+    left: 7.5vw;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem 0.25rem rgba(0, 0, 0, 0.1);
+    display: none;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+    font-weight: var(--font-weight);
+}
+
+#date-overlay {
+    height: 85vh;
+    width: 85vw;
+    position: fixed;
+    background-color: rgb(245, 245, 245);
+    z-index: 2;
+    top: 7.5vh;
+    left: 7.5vw;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem 0.25rem rgba(0, 0, 0, 0.1);
+    display: none;
+    text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
+    font-weight: var(--font-weight);
+}
+.calendar {
+    display: flex;
+    margin: 15vh auto;
+    width: 90%;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: wrap;
+    border-top: solid rgba(192, 192, 192, 0.2);
+    border-bottom: solid rgba(192, 192, 192, 0.2);
+}
+.calendar h2 {
+    text-align: center;
+    padding: 1rem;
+}
+.calendar ul li {
+    border-radius: 15%;
+    padding: 0.5em;
+    text-align: center;
+    transition: 85ms linear;
+}
+.date li:hover {
+    border-radius: 30%;
+    background-color: rgba(22, 163, 74, 1);
+    color: white;
+    padding: 0.5em;
+}
+.oct-cal ul {
+    display: grid;
+    padding: 0;
+    grid-template-columns: repeat(7,1fr);
+    list-style: none;
+}
+.nov-cal ul {
+    display: grid;
+    padding: 0;
+    grid-template-columns: repeat(7,1fr);
+    list-style: none;
+}
+.des-cal ul {
+    display: grid;
+    padding: 0;
+    grid-template-columns: repeat(7,1fr);
+    list-style: none;
+}
